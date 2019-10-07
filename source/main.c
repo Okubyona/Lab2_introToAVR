@@ -14,25 +14,25 @@
 
 int main(void) {
 	DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
-	DDRB = 0xFF; PORTB = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
+	DDRB = 0xFF; PORTC = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
 
-	unsigned char door = 0x00; // Temporary variable to hold the value of door state
-	unsigned char lightSense = 0x00; // Temporary variable to hold the value of B
-	unsigned char nightLight = 0x00; // Temporary variable to hold the value of C
+	unsigned char cntAvail = 0x04;
+	//unsigned char cntAvail = 0x00;
+	unsigned char tmpA = 0x00;
 
 	while(1) {
 			// 1) Read input
-			door = PINA & 0x01; 			//PA0
-			lightSense = PINA & 0x02;	//PA1
+			tmpA = PINA;
 
 			// 2) Perform computation
-			//if PA0 == 1 && PA1 == 0, then PB0 == 0x01;
-			if (door && lightSense == 0x00) { nightLight = 0x01; }
-
-			else { nightLight = 0x00;}
+			for (unsigned char i = 0x00; i < 0x04; ++i) {
+				if (tmpA % 2 == 1) { --cntAvail; }
+				tmpA = tmpA >> 1;
+			}
 
 			//3) Write Output
-			PORTB = nightLight;
+			PORTC = cntAvail;
+			cntAvail = 0x04;
 	}
     return 1;
 }
