@@ -24,16 +24,8 @@ tests = [
         'expected': [('PORTC',0x03)],
     },
     {'description': '',
-        'steps': [ {'inputs': [('PINA',0x02)], 'iterations': 1 } ],
-        'expected': [('PORTC',0x03)],
-    },
-    {'description': '',
-        'steps': [ {'inputs': [('PINA',0x03)], 'iterations': 1 } ],
-        'expected': [('PORTC',0x02)],
-    },
-    {'description': '',
         'steps': [ {'inputs': [('PINA',0x0F)], 'iterations': 1 } ],
-        'expected': [('PORTC',0x00)],
+        'expected': [('PORTC',0x80)],
     },
     ]
 
